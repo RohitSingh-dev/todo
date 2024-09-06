@@ -1,6 +1,6 @@
 .dashboard{
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,7 +8,19 @@
     color: #ffffff;
 }
 .dashboard-top{
+    display: flex;
+    width: inherit;
+    justify-content: space-between;
     text-align: center;
+}
+.dashboard-top-right{
+    margin-right: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dashboard-top-middle{
+    margin-right: -100px;
 }
 .dashboard-top h2{
     margin-top: -20px;
@@ -18,7 +30,7 @@
     width: 900px;
     background-color: #ffffff;
     color: #1515ea;
-    margin: 20px;
+    margin: 20px 0;
     border: none;
     border-radius: 10px;
     display: flex;
@@ -30,6 +42,9 @@
     padding: 20px 40px;
     align-items: center;
     border-bottom: 2px solid black;
+}
+.dashboard-bottom-heading-button button{
+    background-color: transparent;
 }
 .dashboard-bottom-heading-middle{
     display: flex;

@@ -1,10 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
 import './dashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faEllipsisVertical, faLeftLong, faRightLong} from "@fortawesome/free-solid-svg-icons";
+import {faEllipsisVertical, faLeftLong, faRightLong, faUser} from "@fortawesome/free-solid-svg-icons";
 import {UserContext} from "../../context/UserContext.jsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const Dashboard = () => {
     const [date, setDate] = useState(new Date());
@@ -57,20 +59,35 @@ const Dashboard = () => {
         }
     };
 
-  return (
+    let getPreviousDate = () => {
+        const { selectedDate } = this.state
+
+        const currentDayInMilli = new Date(selectedDate).getTime()
+        const oneDay = 1000 * 60 *60 *24
+        const previousDayInMilli = currentDayInMilli - oneDay
+        const previousDate = new Date(previousDayInMilli)
+
+        this.setDate(previousDate)
+
+    }
+
+    return (
       <div className="dashboard">
           <div className="dashboard-top">
-              <h1>To do List</h1>
-              <h2>Welcome {user.currentUser?.user_name}</h2>
+              <div className="dashboard-top-left"></div>
+              <div className="dashboard-top-middle"><h1>To do List</h1>
+                  <h2>Welcome {user.currentUser?.user_name}</h2>
+              </div>
+              <div className="dashboard-top-right"><FontAwesomeIcon icon={faUser} /></div>
           </div>
           <div className="dashboard-bottom">
               <div className="dashboard-bottom-heading">
-                  <div className="dashboard-bottom-heading-button"><button><FontAwesomeIcon icon={faLeftLong}></FontAwesomeIcon></button></div>
+                  <div className="dashboard-bottom-heading-button"><button onClick={() => date.setDate(date.getDate() -1)}><FontAwesomeIcon icon={faLeftLong}></FontAwesomeIcon></button></div>
                   <div className="dashboard-bottom-heading-middle">
                       <h3><DatePicker className="dashboard-bottom-heading-middle-calender" selected={date} onChange={(date) => setDate(date)} /></h3><br />
                       <span>{date.toLocaleString("en", {weekday: "long"})}</span>
                   </div>
-                  <div className="dashboard-bottom-heading-button"><button><FontAwesomeIcon icon={faRightLong}></FontAwesomeIcon></button></div>
+                  <div className="dashboard-bottom-heading-button"><button onClick={() => date.setDate(date.getDate() +1)}><FontAwesomeIcon icon={faRightLong}></FontAwesomeIcon></button></div>
               </div>
               <div className="dashboard-bottom-body">
                   <div className="dashboard-bottom-body-top">
@@ -92,15 +109,11 @@ const Dashboard = () => {
                               todo.map((res,index) => {
                                   return <tr key={index}>
                                       <td className="dashboard-bottom-body-bottom-table-body-action">
-                                          <button onClick={() => setIsOpen(!isOpen)}>
-                                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                                          </button>
-                                          {isOpen && (
-                                              <div>
-                                                  <p>Reschedule</p>
-                                                  <p>Mark as Completed</p>
-                                              </div>
-                                          )}</td>
+                                          <DropdownButton id="dropdown-basic-button" title={<FontAwesomeIcon icon={faEllipsisVertical} />}>
+                                              <Dropdown.Item href="#/action-1">ReSchedule</Dropdown.Item><br />
+                                              <Dropdown.Item href="#/action-2">Mark Completed</Dropdown.Item>
+                                          </DropdownButton>
+                                      </td>
                                       <td>{res.description}</td>
                                       <td>{res.dueDate}</td>
                                       <td className='dashboard-bottom-body-bottom-table-body-status'>{res.complete===true? <span className='dashboard-bottom-body-bottom-table-body-status-pass'>Complete</span> : <span className='dashboard-bottom-body-bottom-table-body-status-fail'>InComplete</span>}</td>

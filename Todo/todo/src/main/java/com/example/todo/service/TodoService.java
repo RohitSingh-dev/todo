@@ -1,11 +1,13 @@
 package com.example.todo.service;
 
 import com.example.todo.entity.Todo;
+import com.example.todo.model.TodoResponse;
 import com.example.todo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,8 +27,14 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    public Todo getTodo(int id){
-        return todoRepository.findById(id).orElseThrow(()-> new RuntimeException("Todo Not Found"));
+    public TodoResponse getTodo(int id){
+        Todo todo = todoRepository.findById(id).orElseThrow(()-> new RuntimeException("Todo Not Found"));
+        TodoResponse todoResponse = new TodoResponse();
+        todoResponse.setDescription(todo.getDescription());
+        todoResponse.setDueDate(todo.getDueDate());
+        todoResponse.setCompleted(todo.isCompleted());
+        todoResponse.setStatus(todo.getStatus());
+        return todoResponse;
     }
 
     @Transactional
@@ -47,7 +55,17 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    public List<Todo> getTodoBySecUser(int id){
-        return todoRepository.findBySecUser_Id(id);
+    public List<TodoResponse> getTodoBySecUser(int id){
+        List<Todo> todos = todoRepository.findBySecUser_Id(id);
+        List<TodoResponse> todoResponses = new ArrayList<>();
+        for(Todo todo : todos){
+            TodoResponse todoResponse = new TodoResponse();
+            todoResponse.setDescription(todo.getDescription());
+            todoResponse.setDueDate(todo.getDueDate());
+            todoResponse.setCompleted(todo.isCompleted());
+            todoResponse.setStatus(todo.getStatus());
+            todoResponses.add(todoResponse);
+        }
+        return todoResponses;
     }
 }

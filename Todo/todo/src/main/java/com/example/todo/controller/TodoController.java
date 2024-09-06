@@ -1,6 +1,7 @@
 package com.example.todo.controller;
 
 import com.example.todo.entity.Todo;
+import com.example.todo.model.TodoResponse;
 import com.example.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,8 @@ public class TodoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Todo> getTodo(@PathVariable int id){
-        return new ResponseEntity<Todo>(todoService.getTodo(id), HttpStatus.OK);
+    public ResponseEntity<TodoResponse> getTodo(@PathVariable int id){
+        return new ResponseEntity<TodoResponse>(todoService.getTodo(id), HttpStatus.OK);
     }
 
     @PutMapping("")
@@ -40,7 +41,7 @@ public class TodoController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<Todo>> getTodoBySecUser(@PathVariable int id){
-        return new ResponseEntity<List<Todo>>(todoService.getTodoBySecUser(id), HttpStatus.OK);
+    public ResponseEntity<List<TodoResponse>> getTodoBySecUser(@PathVariable int id){
+        return new ResponseEntity<List<TodoResponse>>(todoService.getTodoBySecUser(id), HttpStatus.OK);
     }
 }

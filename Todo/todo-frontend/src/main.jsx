@@ -4,10 +4,11 @@ import App from './App.jsx'
 import './index.css'
 import {UserContextProvider} from "./context/UserContext.jsx";
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserContextProvider>
-        <App />
+            <App />
     </UserContextProvider>
   </StrictMode>,
 )
