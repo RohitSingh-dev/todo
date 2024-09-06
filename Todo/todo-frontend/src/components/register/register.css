@@ -1,0 +1,61 @@
+.register{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4848e8;
+}
+.register form{
+    background-color: #ffffff;
+    padding: 40px;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+}
+.register-form-legend{
+    font-size: 30px;
+    margin-top: -25px;
+    margin-bottom: 20px;
+}
+.register-form-label{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: -12px;
+}
+.register-form-label label{
+    font-size: 15px;
+}
+.register-form-label input{
+    margin-top: -20px;
+    width: 100%;
+    height: 25px;
+}
+.register-form-buttons{
+    display: flex;
+    justify-content: center;
+}
+.register-form-buttons input{
+    margin: 30px 20px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.register-form-buttons-reset{
+    background-color: #a1a1a1;
+}
+.register-form-buttons-login{
+    background-color: #01b401;
+}
+.register-form-register{
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+.register-form-message{
+    margin-top: -22px;
+    margin-bottom: 5px;
+    color: red;
+    font-weight: bold;
+}

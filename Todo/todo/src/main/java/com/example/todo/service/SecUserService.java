@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
+
 @Service
 public class SecUserService {
 
@@ -22,6 +24,10 @@ public class SecUserService {
 
     @Transactional
     public String createUser(SecUser secUser){
+        SecUser checkUser = secUserRepository.findByEmail(secUser.getEmail());
+        if(Objects.nonNull(checkUser)){
+            throw new RuntimeException("User already exists, Enter different email");
+        }
         secUser.setPassword(passwordEncoder.encode(secUser.getPassword()));
         secUserRepository.save(secUser);
         return "User Created Successfully";

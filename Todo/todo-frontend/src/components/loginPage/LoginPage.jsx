@@ -38,6 +38,7 @@ const LoginPage = () => {
         }
     };
 
+
     return (
         <div className="loginPage">
             <form onSubmit={handleSubmit}>
@@ -58,7 +59,7 @@ const LoginPage = () => {
                     {message ? <p>{message}</p> : null}
                 </div>
                 <div className='login-form-register'>
-                    <p>New User? <a href='#'>Register here</a></p>
+                    <p>New User? <a href='/user/register'>Register here</a></p>
                 </div>
             </form>
         </div>
